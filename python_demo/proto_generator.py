@@ -19,20 +19,19 @@ class ProtoGenerator():
     def generate_proto_files():
         "generates all the required files for the demo"
         if ProtoGenerator.generate_python_files():
-            # if ProtoGenerator.generate_cpp_files():
             return True
         return False
 
     @staticmethod
     def generate_python_files():
         "generates the python files"
-        file1 = "python_demo/demo_pb2_grpc.py"
-        file2 = "python_demo/demo_pb2.py"
+        file1 = "demo_pb2_grpc.py"
+        file2 = "demo_pb2.py"
 
         clean_file(file1)
         clean_file(file2)
 
-        protoc.main(('', '-I../protofiles', '--python_out=.', '--grpc_python_out=.', '../protofiles/demo.proto'))
+        protoc.main(('', '-I.', '--python_out=.', '--grpc_python_out=.', 'demo.proto'))
 
         if os.path.isfile(file2) and os.path.isfile(file1):
             return True

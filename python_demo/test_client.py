@@ -26,17 +26,28 @@ def get_identity(stub):
                 error = "Unable To Find Name Or Location"
         else:
             error = "Server Returned Incomplete"
-    except Exception:
-        error = "Exception Contacting Endpoint"
+    except Exception as ex:
+        error = "Exception Contacting Endpoint: " + ex.__str__()
 
     return name, location, error
 
 
 def main():
     cpp_address = 'localhost:6001'
+    python_address = 'localhost:6002'
 
     # get data from C++ demo app
     with grpc.insecure_channel(cpp_address) as channel:
+        stub = demo.DemoStub(channel)
+        name, location, error = get_identity(stub)
+
+        if not len(error):
+            print("Hello, I'm " + name + " From The " + location)
+        else:
+            print(error)
+
+    # get data from Python demo app
+    with grpc.insecure_channel(python_address) as channel:
         stub = demo.DemoStub(channel)
         name, location, error = get_identity(stub)
 

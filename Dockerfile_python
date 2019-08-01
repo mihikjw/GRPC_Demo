@@ -1,0 +1,10 @@
+FROM python:3
+
+WORKDIR /app
+RUN pip3 install grpcio-tools
+COPY python_demo/proto_generator.py .
+COPY python_demo/server.py .
+COPY protofiles/demo.proto .
+RUN python3 proto_generator.py
+
+CMD python3 server.py
