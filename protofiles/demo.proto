@@ -1,0 +1,11 @@
+syntax = "proto3";
+package demo;
+
+service Demo {
+    rpc GetIdentity(Identity) returns (Identity) {}
+}
+
+message Identity {
+    string name = 1;
+    string location = 2;
+}

@@ -1,0 +1,14 @@
+
+# python files
+*.pyc
+
+# cpp files
+cpp_demo/CMakeFiles
+cpp_demo/cmake_install.cmake
+cpp_demo/CMakeCache.txt
+cpp_demo/Makefile
+
+# generated protobuf code
+*demo_pb2*
+*demo.pb*
+*demo.grpc*

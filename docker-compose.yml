@@ -1,0 +1,21 @@
+version: '3'
+networks:
+  internal-net:
+    internal: true
+  public-net:
+    internal: false
+services:
+  cppdemo:
+    container_name: cppdemo
+    build:
+      context: .
+      dockerfile: Dockerfile_cpp
+    image:
+      grpcdemo:cppdemo
+    restart: "no"
+    volumes: 
+      - "./cpp-demo/protosource:/app/protosource"
+    ports:  
+      - "6001:1234"
+    networks:
+      - public-net
