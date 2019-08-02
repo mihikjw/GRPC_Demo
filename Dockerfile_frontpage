@@ -1,0 +1,10 @@
+FROM python:latest
+
+WORKDIR /app
+RUN pip3 install flask
+
+COPY frontpage/frontpage.py .
+RUN mkdir templates
+COPY frontpage/templates/index.html /app/templates/index.html
+
+CMD python3 frontpage.py

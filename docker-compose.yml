@@ -3,6 +3,18 @@ networks:
   public-net:
     internal: false
 services:
+  frontpage:
+    container_name: frontpage
+    build:
+      context: .
+      dockerfile: Dockerfile_frontpage
+    image:
+      grpcdemo:frontpage
+    restart: "no"
+    ports:
+      - "80:1234"
+    networks:
+      - public-net
   cppdemo:
     container_name: cppdemo
     build:

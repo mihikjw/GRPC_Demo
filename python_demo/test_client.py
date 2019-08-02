@@ -1,8 +1,4 @@
 
-"""
-A script to let you test the gRPC server endpoints as you're developing
-"""
-
 import grpc
 import demo_pb2_grpc as demo
 import demo_pb2 as demo_struct
@@ -32,29 +28,23 @@ def get_identity(stub):
     return name, location, error
 
 
+def make_request(address):
+    with grpc.insecure_channel(address) as channel:
+        stub = demo.DemoStub(channel)
+        name, location, error = get_identity(stub)
+
+        if not len(error):
+            return "Hello, I'm " + name + " From The " + location
+        else:
+            return error
+
+
 def main():
     cpp_address = 'localhost:6001'
     python_address = 'localhost:6002'
 
-    # get data from C++ demo app
-    with grpc.insecure_channel(cpp_address) as channel:
-        stub = demo.DemoStub(channel)
-        name, location, error = get_identity(stub)
-
-        if not len(error):
-            print("Hello, I'm " + name + " From The " + location)
-        else:
-            print(error)
-
-    # get data from Python demo app
-    with grpc.insecure_channel(python_address) as channel:
-        stub = demo.DemoStub(channel)
-        name, location, error = get_identity(stub)
-
-        if not len(error):
-            print("Hello, I'm " + name + " From The " + location)
-        else:
-            print(error)
+    print(make_request(cpp_address))
+    print(make_request(python_address))
 
 
 if __name__ == "__main__":
