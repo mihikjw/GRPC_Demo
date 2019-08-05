@@ -15,6 +15,9 @@ services:
       - "80:1234"
     networks:
       - public-net
+    environment:
+      - CPP_ENDPOINT=cppdemo:1234
+      - PY_ENDPOINT=pythondemo:1234
   cppdemo:
     container_name: cppdemo
     build:

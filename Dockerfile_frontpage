@@ -1,10 +1,15 @@
 FROM python:latest
 
 WORKDIR /app
-RUN pip3 install flask
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
 
 COPY frontpage/frontpage.py .
+COPY frontpage/grpc_functions.py .
+COPY python_demo/proto_generator.py .
 RUN mkdir templates
 COPY frontpage/templates/index.html /app/templates/index.html
+COPY protofiles/demo.proto .
+RUN python3 proto_generator.py
 
 CMD python3 frontpage.py

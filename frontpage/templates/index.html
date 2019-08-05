@@ -3,6 +3,13 @@
         <title>gRPC Demo</title>
     </header>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Introduction</h1>
+        <p>gRPC is a great protocol for fast, internal backend inter-process communication.</p>
+
+        <h1>Results</h1>
+        {% for location, name in response_data.items() %}
+            <h3>{{ location }}</h3>
+            <p>Hello From {{ name }} At The {{ location }}!</p>
+        {% endfor %}
     </body>
 </html>
